@@ -1,6 +1,4 @@
-import * as Octokit from "@octokit/rest";
-import * as createDebug from "debug";
-import { needAutosquashing, rebasePullRequest } from "github-rebase";
+import { needAutosquashing, rebasePullRequest } from "@nr9/github-rebase";
 import {
   deleteRef,
   PullRequestNumber,
@@ -8,7 +6,9 @@ import {
   RepoName,
   RepoOwner,
   Sha,
-} from "shared-github-internals/lib/git";
+} from "@nr9/shared-github-internals";
+import * as Octokit from "@octokit/rest";
+import createDebug from "debug";
 
 import {
   Debug,
@@ -204,7 +204,7 @@ const rebase = async ({
       pull_number: pullRequestNumber,
       repo,
     });
-    await octokit.issues.createComment({
+    const data: Octokit.IssuesCreateCommentParams = {
       body: [
         `The rebase failed:`,
         "",
@@ -232,7 +232,8 @@ const rebase = async ({
       issue_number: pullRequestNumber,
       owner,
       repo,
-    });
+    };
+    await octokit.issues.createComment(data);
     throw new Error(message);
   }
 };
@@ -354,7 +355,7 @@ const rebaseOneTime = async ({
     repo,
     username,
   });
-  if (canRebaseOneTime(permission)) {
+  if (canRebaseOneTime(permission as Permission)) {
     await rebase({
       debug,
       octokit,

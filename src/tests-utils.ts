@@ -1,7 +1,3 @@
-import * as Octokit from "@octokit/rest";
-import * as envalid from "envalid";
-import { Application, createProbot } from "probot";
-import { createWebhookProxy } from "probot/lib/webhook-proxy";
 import {
   deleteRef,
   fetchRefSha,
@@ -9,7 +5,11 @@ import {
   Ref,
   RepoName,
   RepoOwner,
-} from "shared-github-internals/lib/git";
+} from "@nr9/shared-github-internals";
+import * as Octokit from "@octokit/rest";
+import * as envalid from "envalid";
+import { Application, createProbot } from "probot";
+import { createWebhookProxy } from "probot/lib/webhook-proxy";
 
 import { Debug, sleep, waitForKnownMergeableState } from "./utils";
 
@@ -51,8 +51,7 @@ const createAuthenticatedOctokit = async ({
   const installationAccessToken = await app.getInstallationAccessToken({
     installationId,
   });
-  const octokit = new Octokit({ auth: `token ${installationAccessToken}` });
-  return octokit;
+  return new Octokit({ auth: `token ${installationAccessToken}` });
 };
 
 const createTestContext = async (

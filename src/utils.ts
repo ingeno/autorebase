@@ -1,13 +1,11 @@
-import * as assert from "assert";
-
-import * as Octokit from "@octokit/rest";
 import {
   PullRequestNumber,
   Ref,
   RepoName,
   RepoOwner,
   Sha,
-} from "shared-github-internals/lib/git";
+} from "@nr9/shared-github-internals";
+import * as Octokit from "@octokit/rest";
 
 // tslint:disable-next-line:no-var-requires (otherwise we get the error TS2497).
 const promiseRetry = require("promise-retry");
@@ -116,7 +114,9 @@ const checkKnownMergeableState = async ({
   });
   const { closed_at: closedAt, mergeable_state: mergeableState } = pullRequest;
   debug("mergeable state", { closedAt, mergeableState, pullRequestNumber });
-  assert(isMergeableStateKnown(pullRequest));
+  if (!isMergeableStateKnown(pullRequest)) {
+    throw new Error('pullRequest is not Mergeable')
+  }
   return pullRequest;
 };
 

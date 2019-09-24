@@ -6,7 +6,8 @@
     "LOG_LEVEL": "@autorebase-log-level",
     "PRIVATE_KEY": "@autorebase-base64-encoded-private-key",
     "SENTRY_DSN": "@autorebase-sentry-dsn",
-    "WEBHOOK_SECRET": "@autorebase-webhook-secret"
+    "WEBHOOK_SECRET": "@autorebase-webhook-secret",
+    "GITHUB_NPM_TOKEN": "@autorebase-github-npm-token"
   },
   "routes": [{ "src": "/", "dest": "src/index.ts" }],
   "version": 2

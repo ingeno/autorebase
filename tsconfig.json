@@ -1,7 +1,8 @@
 {
   "compilerOptions": {
+    "declaration": true,
     "module": "CommonJS",
-    "skipLibCheck": true,
+    "outDir": "lib",
     "strict": true,
     "target": "ES2017"
   }

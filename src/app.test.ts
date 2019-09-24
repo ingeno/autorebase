@@ -1,17 +1,17 @@
-import * as Octokit from "@octokit/rest";
-import * as createDebug from "debug";
 import {
   PullRequestNumber,
   RepoName,
   RepoOwner,
-} from "shared-github-internals/lib/git";
+} from "@nr9/shared-github-internals";
 import {
   createPullRequest,
   createRefs,
   DeleteRefs,
   fetchRefCommits,
   RefsDetails,
-} from "shared-github-internals/lib/tests/git";
+} from "@nr9/shared-github-internals/lib/tests";
+import * as Octokit from "@octokit/rest";
+import createDebug from "debug";
 import * as generateUuid from "uuid/v4";
 
 import {
@@ -612,7 +612,7 @@ describe("label workflow", () => {
         },
         debug,
       });
-    }, 50000);
+    }, 150000);
   });
 
   describe("rebase failed", () => {
